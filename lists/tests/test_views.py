@@ -83,7 +83,7 @@ class ListViewTest(TestCase):
         '''тест отображения формы для элемента'''
         list_ = List.objects.create()
         response = self.client.get(f'/lists/{list_.id}/')
-        self.assertIsInstance(response.context['form'], ItemForm)
+        self.assertIsInstance(response.context['form'], ExistingListItemForm)
         self.assertContains(response, 'name="text"')
 
     def post_invalid_input(self):
@@ -108,7 +108,7 @@ class ListViewTest(TestCase):
     def test_for_invalid_input_passes_form_to_template(self):
         '''тест на недопустимый ввод: форма передается в шаблон'''
         response = self.post_invalid_input()
-        self.assertIsInstance(response.context['form'], ItemForm)
+        self.assertIsInstance(response.context['form'], ExistingListItemForm)
 
     def test_for_invalid_input_shows_error_on_page(self):
         '''тест на недопустимый ввод: на странице показывается ошибка'''
